@@ -1,6 +1,6 @@
 const BASE_URL = "http://localhost:5000/api";
 
-function request(url, method, data, callback) {
+export function request(url, method, data, callback) {
 
   $.ajax({
     url: BASE_URL + url,

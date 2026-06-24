@@ -1,3 +1,5 @@
+import { listarProdutos, criarProduto, editarProduto, excluirProdutoAPI } from './produtos.js'
+
 let produtos = [];
 
 // =====================
