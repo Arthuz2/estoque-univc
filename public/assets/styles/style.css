@@ -12,9 +12,6 @@ body {
   min-height: 100vh;
 }
 
-/* =====================
-   NAVBAR
-===================== */
 .navbar {
   background: #1e293b;
   padding: 0 2rem;
@@ -70,9 +67,6 @@ body {
 }
 
 
-/* =====================
-   CABEÇALHO DA PÁGINA
-===================== */
 .page-title {
   font-size: 1.15rem;
   font-weight: 600;
@@ -85,9 +79,6 @@ body {
   margin-top: 2px;
 }
 
-/* =====================
-   BOTÕES
-===================== */
 .btn-primary-sf {
   background: #2563eb;
   color: #fff;
@@ -122,9 +113,6 @@ body {
   background: #f1f5f9;
 }
 
-/* =====================
-   BARRA DE BUSCA
-===================== */
 .search-bar {
   position: relative;
   max-width: 420px;
@@ -156,9 +144,6 @@ body {
   outline: none;
 }
 
-/* =====================
-   TABELA
-===================== */
 .table-card {
   background: #fff;
   border-radius: 12px;
@@ -198,7 +183,6 @@ body {
   color: #0f172a;
 }
 
-/* BADGES DE STATUS */
 .badge-status {
   font-size: 0.72rem;
   padding: 3px 10px;
@@ -222,7 +206,6 @@ body {
   color: #d97706;
 }
 
-/* BOTÕES DE AÇÃO NA TABELA */
 .btn-acao {
   background: transparent;
   border: 1px solid #e2e8f0;
@@ -259,7 +242,6 @@ body {
   border-color: #fecaca;
 }
 
-/* SEM RESULTADOS */
 .sem-resultados {
   text-align: center;
   padding: 3rem 1rem;
@@ -276,9 +258,6 @@ body {
   font-size: 0.9rem;
 }
 
-/* =====================
-   MODAL
-===================== */
 .modal-overlay {
   display: none;
   position: fixed;
@@ -379,9 +358,6 @@ body {
   outline: none;
 }
 
-/* =====================
-   TOAST
-===================== */
 .toast-msg {
   position: fixed;
   bottom: 1.5rem;

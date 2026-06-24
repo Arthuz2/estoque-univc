@@ -12,7 +12,6 @@
 
 <body>
 
-  <!-- NAVBAR -->
   <nav class="navbar">
     <div class="navbar-brand">
       <i class="ti ti-box"></i>
@@ -23,10 +22,8 @@
     </div>
   </nav>
 
-  <!-- CONTEÚDO PRINCIPAL -->
   <main class="container-fluid px-4 py-4">
 
-    <!-- CABEÇALHO DA PÁGINA -->
     <div class="page-header d-flex justify-content-between align-items-center mb-4">
       <div>
         <h4 class="page-title">Produtos</h4>
@@ -37,13 +34,11 @@
       </button>
     </div>
 
-    <!-- BARRA DE BUSCA -->
     <div class="search-bar mb-3">
       <i class="ti ti-search search-icon"></i>
       <input type="text" id="campoBusca" class="form-control search-input" placeholder="Buscar produto por nome ou categoria..." oninput="filtrarProdutos()" />
     </div>
 
-    <!-- TABELA DE PRODUTOS -->
     <div class="table-card">
       <table class="table table-produtos" id="tabelaProdutos">
         <thead>
@@ -58,8 +53,7 @@
           </tr>
         </thead>
         <tbody id="corpoTabela">
-          <!-- Linhas geradas pelo JS -->
-        </tbody>
+        <tbody>
       </table>
 
       <div id="semResultados" class="sem-resultados d-none">
@@ -70,7 +64,6 @@
 
   </main>
 
-  <!-- MODAL EDITAR / NOVO PRODUTO -->
   <div class="modal-overlay" id="modalOverlay" onclick="fecharModal(event)">
     <div class="modal-box">
       <div class="modal-header-sf">
@@ -115,7 +108,6 @@
     </div>
   </div>
 
-  <!-- TOAST DE FEEDBACK -->
   <div class="toast-msg" id="toastMsg"></div>
 
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
