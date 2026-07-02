@@ -358,6 +358,145 @@ body {
   outline: none;
 }
 
+/* MOVIMENTAÇÃO */
+.mov-info {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 0.65rem 0.9rem;
+}
+
+.mov-info-nome {
+  font-weight: 600;
+  color: #0f172a;
+  font-size: 0.9rem;
+}
+
+.mov-info-estoque {
+  font-size: 0.8rem;
+  color: #64748b;
+}
+
+.mov-info-estoque strong {
+  color: #0f172a;
+}
+
+.tipo-toggle {
+  display: flex;
+  gap: 8px;
+}
+
+.tipo-btn {
+  flex: 1;
+  background: #fff;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 0.55rem;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: #64748b;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  transition: background 0.15s, border-color 0.15s, color 0.15s;
+}
+
+.tipo-btn.entrada.ativo {
+  background: #f0fdf4;
+  border-color: #86efac;
+  color: #16a34a;
+}
+
+.tipo-btn.saida.ativo {
+  background: #fef2f2;
+  border-color: #fca5a5;
+  color: #dc2626;
+}
+
+/* HISTÓRICO */
+.hist-lista {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-height: 60vh;
+  overflow-y: auto;
+}
+
+.hist-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 0.7rem 0.9rem;
+  border: 1px solid #f1f5f9;
+  border-radius: 8px;
+}
+
+.hist-icone {
+  width: 34px;
+  height: 34px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.hist-icone.entrada {
+  background: #f0fdf4;
+  color: #16a34a;
+}
+
+.hist-icone.saida {
+  background: #fef2f2;
+  color: #dc2626;
+}
+
+.hist-corpo {
+  flex: 1;
+  min-width: 0;
+}
+
+.hist-descricao {
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: #0f172a;
+}
+
+.hist-obs {
+  font-size: 0.78rem;
+  color: #64748b;
+  margin-top: 2px;
+}
+
+.hist-data {
+  font-size: 0.72rem;
+  color: #94a3b8;
+  margin-top: 2px;
+}
+
+.hist-qtd {
+  font-weight: 600;
+  font-size: 0.95rem;
+  flex-shrink: 0;
+}
+
+.hist-qtd.entrada {
+  color: #16a34a;
+}
+
+.hist-qtd.saida {
+  color: #dc2626;
+}
+
+.disabled {
+  cursor: not-allowed;
+}
+
 .toast-msg {
   position: fixed;
   bottom: 1.5rem;

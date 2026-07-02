@@ -4,8 +4,14 @@ import {
   editarProduto,
   excluirProdutoAPI,
 } from "./produtos.js";
+import {
+  entradaEstoque,
+  saidaEstoque,
+  movimentacoesPorProduto,
+} from "./movimentacao.js";
 
 let produtos = [];
+let tipoMov = "entrada";
 
 $(document).ready(function () {
   carregarProdutos();
@@ -16,6 +22,14 @@ $(document).ready(function () {
   window.fecharModal = fecharModal;
   window.abrirModalEdicao = abrirModalEdicao;
   window.excluirProduto = excluirProduto;
+  window.abrirModalMov = abrirModalMov;
+  window.setTipoMov = setTipoMov;
+  window.registrarMov = registrarMov;
+  window.fecharModalMov = fecharModalMov;
+  window.fecharModalMovDireto = fecharModalMovDireto;
+  window.abrirModalHist = abrirModalHist;
+  window.fecharModalHist = fecharModalHist;
+  window.fecharModalHistDireto = fecharModalHistDireto;
 });
 
 function carregarProdutos() {
@@ -67,6 +81,8 @@ function renderizarTabela(lista) {
         <td>${valorFormatado}</td>
         <td><span class="badge-status ${statusClass}">${statusTexto}</span></td>
         <td>
+          <button class="btn-acao" onclick="abrirModalMov(${produto.id})"><i class="ti ti-arrows-exchange"></i>Movimentar</button>
+          <button class="btn-acao" onclick="abrirModalHist(${produto.id})"><i class="ti ti-history"></i>Histórico</button>
           <button class="btn-acao" onclick="abrirModalEdicao(${produto.id})"><i class="ti ti-pencil"></i>Editar</button>
           <button class="btn-acao excluir" onclick="excluirProduto(${produto.id})"><i class="ti ti-trash"></i>Excluir</button>
         </td>
@@ -183,6 +199,136 @@ function fecharModalDireto() {
 function fecharModal(event) {
   if (event.target === event.currentTarget) {
     fecharModalDireto();
+  }
+}
+
+function abrirModalMov(id) {
+  const produto = produtos.find((p) => p.id === id);
+  if (!produto) return;
+
+  $("#movProdutoId").val(produto.id);
+  $("#movProdutoNome").text(produto.nome);
+  $("#movEstoqueAtual").text(produto.quantidade);
+  $("#movQtd").val("");
+  $("#movObs").val("");
+  setTipoMov("entrada");
+
+  $("#modalMovOverlay").addClass("aberto");
+  $("#movQtd").focus();
+}
+
+function setTipoMov(tipo) {
+  tipoMov = tipo;
+  $("#tipoEntrada").toggleClass("ativo", tipo === "entrada");
+  $("#tipoSaida").toggleClass("ativo", tipo === "saida");
+}
+
+function registrarMov() {
+  const id = $("#movProdutoId").val();
+  const quantidade = parseInt($("#movQtd").val(), 10);
+
+  if (Number.isNaN(quantidade) || quantidade <= 0) {
+    mostrarToast("Informe uma quantidade válida");
+    return;
+  }
+
+  const dados = {
+    produto_id: Number(id),
+    quantidade: quantidade,
+    observacao: $("#movObs").val().trim(),
+  };
+
+  const aoConcluir = function () {
+    mostrarToast(tipoMov === "entrada" ? "Entrada registrada" : "Saída registrada");
+    fecharModalMovDireto();
+    carregarProdutos();
+  };
+
+  const aoFalhar = function (mensagem) {
+    mostrarToast(mensagem || "Não foi possível registrar a movimentação");
+  };
+
+  if (tipoMov === "entrada") {
+    entradaEstoque(dados, aoConcluir, aoFalhar);
+  } else {
+    saidaEstoque(dados, aoConcluir, aoFalhar);
+  }
+}
+
+function fecharModalMovDireto() {
+  $("#modalMovOverlay").removeClass("aberto");
+}
+
+function fecharModalMov(event) {
+  if (event.target === event.currentTarget) {
+    fecharModalMovDireto();
+  }
+}
+
+function abrirModalHist(id) {
+  const produto = produtos.find((p) => p.id === id);
+  if (!produto) return;
+
+  $("#histTitulo").text("Histórico — " + produto.nome);
+  $("#histLista").empty();
+  $("#histVazio").addClass("d-none");
+  $("#modalHistOverlay").addClass("aberto");
+
+  movimentacoesPorProduto(
+    id,
+    function (movimentacoes) {
+      renderizarHistorico(Array.isArray(movimentacoes) ? movimentacoes : []);
+    },
+    function (mensagem) {
+      mostrarToast(mensagem || "Não foi possível carregar o histórico");
+    },
+  );
+}
+
+function renderizarHistorico(movimentacoes) {
+  const lista = $("#histLista");
+  const vazio = $("#histVazio");
+  lista.empty();
+
+  if (movimentacoes.length === 0) {
+    vazio.removeClass("d-none");
+    return;
+  }
+
+  vazio.addClass("d-none");
+
+  movimentacoes.forEach((mov) => {
+    const ehEntrada = mov.tipo === "entrada";
+    const icone = ehEntrada ? "ti-arrow-down-left" : "ti-arrow-up-right";
+    const classe = ehEntrada ? "entrada" : "saida";
+    const sinal = ehEntrada ? "+" : "−";
+    const data = new Date(mov.criado_em).toLocaleString("pt-BR");
+    const obs = mov.observacao
+      ? `<div class="hist-obs">${mov.observacao}</div>`
+      : "";
+
+    const item = `
+      <div class="hist-item">
+        <div class="hist-icone ${classe}"><i class="ti ${icone}"></i></div>
+        <div class="hist-corpo">
+          <div class="hist-descricao">${mov.descricao}</div>
+          ${obs}
+          <div class="hist-data">${data}</div>
+        </div>
+        <div class="hist-qtd ${classe}">${sinal}${mov.quantidade}</div>
+      </div>`;
+
+    lista.append(item);
+  });
+}
+
+function fecharModalHistDireto() {
+  $("#modalHistOverlay").removeClass("aberto");
+}
+
+function fecharModalHist(event) {
+  if (event.target === event.currentTarget) {
+    fecharModalHistDireto();
   }
 }
 

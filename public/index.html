@@ -87,7 +87,7 @@
           <div class="col-6">
             <div class="campo-grupo">
               <label for="modalQtd">Quantidade em Estoque</label>
-              <input type="number" id="modalQtd" class="form-control" placeholder="0" min="0" />
+              <input type="number" id="modalQtd" class="form-control disabled" placeholder="0" min="0" disabled readonly />
             </div>
           </div>
           <div class="col-6">
@@ -104,6 +104,64 @@
         <button class="btn-primary-sf" onclick="salvarProduto()">
           <i class="ti ti-device-floppy"></i> Salvar
         </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-overlay" id="modalMovOverlay" onclick="fecharModalMov(event)">
+    <div class="modal-box">
+      <div class="modal-header-sf">
+        <h5>Movimentar Estoque</h5>
+        <button class="modal-close" onclick="fecharModalMovDireto()"><i class="ti ti-x"></i></button>
+      </div>
+      <div class="modal-body-sf">
+        <input type="hidden" id="movProdutoId" />
+
+        <div class="mov-info">
+          <span class="mov-info-nome" id="movProdutoNome"></span>
+          <span class="mov-info-estoque">Estoque atual: <strong id="movEstoqueAtual">0</strong></span>
+        </div>
+
+        <div class="tipo-toggle">
+          <button type="button" class="tipo-btn entrada ativo" id="tipoEntrada" onclick="setTipoMov('entrada')">
+            <i class="ti ti-arrow-down-left"></i> Entrada
+          </button>
+          <button type="button" class="tipo-btn saida" id="tipoSaida" onclick="setTipoMov('saida')">
+            <i class="ti ti-arrow-up-right"></i> Saída
+          </button>
+        </div>
+
+        <div class="campo-grupo">
+          <label for="movQtd">Quantidade</label>
+          <input type="number" id="movQtd" class="form-control" placeholder="0" min="1" />
+        </div>
+
+        <div class="campo-grupo">
+          <label for="movObs">Observação (opcional)</label>
+          <input type="text" id="movObs" class="form-control" placeholder="Ex: Reposição de estoque" />
+        </div>
+      </div>
+      <div class="modal-footer-sf">
+        <button class="btn-cancelar" onclick="fecharModalMovDireto()">Cancelar</button>
+        <button class="btn-primary-sf" onclick="registrarMov()">
+          <i class="ti ti-check"></i> Registrar
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-overlay" id="modalHistOverlay" onclick="fecharModalHist(event)">
+    <div class="modal-box">
+      <div class="modal-header-sf">
+        <h5 id="histTitulo">Histórico de Movimentações</h5>
+        <button class="modal-close" onclick="fecharModalHistDireto()"><i class="ti ti-x"></i></button>
+      </div>
+      <div class="modal-body-sf">
+        <div class="hist-lista" id="histLista"></div>
+        <div id="histVazio" class="sem-resultados d-none">
+          <i class="ti ti-history-off"></i>
+          <p>Nenhuma movimentação registrada.</p>
+        </div>
       </div>
     </div>
   </div>
