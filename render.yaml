@@ -6,7 +6,7 @@ databases:
 
 services:
   - type: web
-    name: estoque-api
+    name: stockflow
     runtime: docker
     plan: free
     dockerfilePath: ./Dockerfile
