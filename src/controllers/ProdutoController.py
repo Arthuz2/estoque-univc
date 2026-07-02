@@ -35,6 +35,8 @@ def atualizar(id):
         return jsonify(_service.atualizar(id, dados).to_dict()), 200
     except NaoEncontradoError:
         return jsonify({"erro": "Produto não encontrado"}), 404
+    except ValidacaoError as e:
+        return jsonify({"erro": str(e)}), 400
 
 @produto_bp.route("/<int:id>", methods=["DELETE"])
 def deletar(id):

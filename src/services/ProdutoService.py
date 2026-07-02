@@ -27,7 +27,11 @@ class ProdutoService:
 
     def atualizar(self, id: int, dados: dict) -> Produto:
         produto = self.buscar(id)
-        for campo in ("nome", "descricao", "preco", "quantidade"):
+
+        if "quantidade" in dados:
+            raise ValidacaoError("Não é permitido atualizar a quantidade diretamente. Use operações de entrada/saída de estoque.")
+
+        for campo in ("nome", "descricao", "preco"):
             if campo in dados:
                 setattr(produto, campo, dados[campo])
         return self.repository.save(produto)
