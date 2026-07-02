@@ -1,3 +1,5 @@
+import { request } from "./api.js";
+
 export function entradaEstoque(dados, callback) {
   request("/movimentacoes/entrada", "POST", dados, callback);
 }

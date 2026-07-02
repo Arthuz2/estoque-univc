@@ -10,8 +10,6 @@ down:
 	docker compose down
 
 setup: build up
-	docker compose exec api flask db init
-	docker compose exec api flask db migrate -m "create produtos table"
 	docker compose exec api flask db upgrade
 
 migration:
@@ -19,3 +17,4 @@ migration:
 
 migrate:
 	docker compose exec api flask db upgrade
+	

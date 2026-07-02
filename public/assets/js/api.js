@@ -1,4 +1,4 @@
-const BASE_URL = "http://localhost:5000/api";
+const BASE_URL = "/api";
 
 export function request(url, method, data, callback, errorCallback) {
   $.ajax({
