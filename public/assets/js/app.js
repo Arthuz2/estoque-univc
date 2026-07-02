@@ -166,7 +166,11 @@ function abrirModalNovo() {
   $("#modalId").val("");
   $("#modalNome").val("");
   $("#modalCategoria").val("");
-  $("#modalQtd").val("");
+  $("#modalQtd").val("")
+  .attr("disabled", false)
+  .attr("readonly", false)
+  .removeClass("disabled");
+
   $("#modalValor").val("");
 
   abrirModal();
@@ -181,7 +185,11 @@ function abrirModalEdicao(id) {
   $("#modalId").val(produto.id);
   $("#modalNome").val(produto.nome);
   $("#modalCategoria").val(produto.descricao);
-  $("#modalQtd").val(produto.quantidade);
+  $("#modalQtd").val(produto.quantidade)
+  .attr("disabled", true)
+  .attr("readonly", true)
+  .addClass("disabled");
+
   $("#modalValor").val(produto.preco);
 
   abrirModal();
