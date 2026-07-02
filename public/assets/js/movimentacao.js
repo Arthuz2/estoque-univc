@@ -14,3 +14,4 @@ export function listarMovimentacoes(callback, errorCallback) {
 
 export function movimentacoesPorProduto(id, callback, errorCallback) {
   request("/movimentacoes/produto/" + id, "GET", null, callback, errorCallback);
+}
